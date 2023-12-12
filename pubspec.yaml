@@ -16,6 +16,8 @@ dependencies:
   dio:
   vibration:
   rxdart:
+  intl:
+  provider:
 
 dev_dependencies:
   flutter_test:
