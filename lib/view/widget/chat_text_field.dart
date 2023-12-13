@@ -7,9 +7,9 @@ class ChatTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textController = context.read<ChatProvider>().textEditingController;
+    final textController = context.read<ChatProvider>().textController;
     return Padding(
-      padding:const EdgeInsets.symmetric(horizontal: 24),
+      padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Container(
         decoration: BoxDecoration(
             color: Colors.grey.withOpacity(0.2),

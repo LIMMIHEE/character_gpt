@@ -1,3 +1,4 @@
+import 'package:character_gpt/view/data/model/chat_message.dart' as model;
 import 'package:character_gpt/view/data/provider/chat_provider.dart';
 import 'package:character_gpt/view/widget/char_message.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ class ChatList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final chatMessage = context.read<ChatProvider>().chatMessage;
+    final chatMessage = context.select((ChatProvider provider) => provider.chatMessage);
 
     return ListView.builder(
         physics: const BouncingScrollPhysics(),
@@ -18,8 +19,10 @@ class ChatList extends StatelessWidget {
           final message = chatMessage[index];
 
           return ChatMessage(
-            isMyMessage: message.isMyMessage,
-            message:  message.message, dateTime: message.dateTime,);
+            isMyMessage: message.messageType == model.MessageType.user,
+            message: message.content,
+            dateTime: message.dateTime,
+          );
         });
   }
 }
