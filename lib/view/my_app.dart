@@ -1,5 +1,7 @@
 import 'package:character_gpt/view/screen/chat_screen.dart';
+import 'package:character_gpt/view/widget/dash_animation.dart';
 import 'package:flutter/material.dart';
+import 'package:rive/rive.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -12,7 +14,17 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
         useMaterial3: true,
       ),
-      home: const SafeArea(child: ChatScreen()),
+      home: const Scaffold(
+        backgroundColor: Colors.white,
+        body: SafeArea(child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            DashAnimation(),
+            Expanded(child: ChatScreen())
+          ],
+        )),
+      ),
     );
   }
 }

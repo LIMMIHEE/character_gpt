@@ -11,18 +11,21 @@ class ChatList extends StatelessWidget {
   Widget build(BuildContext context) {
     final chatMessage = context.select((ChatProvider provider) => provider.chatMessage);
 
-    return ListView.builder(
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxHeight: 400),
+      child: SingleChildScrollView(
+        controller: context.read<ChatProvider>().scrollController,
         physics: const BouncingScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: chatMessage.length,
-        itemBuilder: (context, index) {
-          final message = chatMessage[index];
-
-          return ChatMessage(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: chatMessage.map((message) => ChatMessage(
             isMyMessage: message.messageType == model.MessageType.user,
             message: message.content,
             dateTime: message.dateTime,
-          );
-        });
+          )).toList(),
+        ),
+      ),
+    );
   }
 }

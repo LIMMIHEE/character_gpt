@@ -12,12 +12,11 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            const Expanded(
-              child: ChatList(),
-            ),
+            const ChatList(),
             Column(
               children: [
                 const Padding(
@@ -26,30 +25,33 @@ class ChatScreen extends StatelessWidget {
                     height: 1,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  child: Row(
-                    children: [
-                      const Expanded(
-                        child: ChatTextField(),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          context.read<ChatProvider>().sendChat();
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.only(right: 24),
-                          padding: const EdgeInsets.all(14),
-                          decoration: BoxDecoration(
-                              color: Colors.blueAccent,
-                              borderRadius: BorderRadius.circular(12)),
-                          child: const Icon(
-                            Icons.arrow_forward,
-                            color: Colors.white,
-                          ),
+                ColoredBox(
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    child: Row(
+                      children: [
+                        const Expanded(
+                          child: ChatTextField(),
                         ),
-                      )
-                    ],
+                        GestureDetector(
+                          onTap: () {
+                            context.read<ChatProvider>().sendChat();
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.only(right: 24),
+                            padding: const EdgeInsets.all(14),
+                            decoration: BoxDecoration(
+                                color: Colors.blueAccent,
+                                borderRadius: BorderRadius.circular(12)),
+                            child: const Icon(
+                              Icons.arrow_forward,
+                              color: Colors.white,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 )
               ],
