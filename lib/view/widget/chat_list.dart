@@ -23,6 +23,7 @@ class ChatList extends StatelessWidget {
             isMyMessage: message.messageType == model.MessageType.user,
             message: message.content,
             dateTime: message.dateTime,
+            lastMessage: message.hashCode == chatMessage.last.hashCode,
           )).toList(),
         ),
       ),

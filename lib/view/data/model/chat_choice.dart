@@ -1,3 +1,4 @@
+import 'package:character_gpt/view/data/model/chat_delta.dart';
 import 'package:character_gpt/view/data/model/chat_message.dart';
 import 'package:character_gpt/view/data/model/usage.dart';
 
@@ -7,6 +8,7 @@ class ChatChoice {
   final Usage? usage;
   final String? finishReason;
   final int? index;
+  final ChatDelta? delta;
 
   ChatChoice({
     this.message,
@@ -14,6 +16,7 @@ class ChatChoice {
     this.usage,
     this.finishReason,
     this.index,
+    this.delta,
   });
 
   factory ChatChoice.fromJson(Map<String, dynamic> json) {
@@ -27,6 +30,9 @@ class ChatChoice {
           : Usage.fromJson(json['usage'] as Map<String, dynamic>),
       finishReason: json['finishReason'] as String?,
       index: json['index'] as int?,
+      delta: json['delta'] == null
+          ? null
+          : ChatDelta.fromJson(json['delta'] as Map<String, dynamic>),
     );
   }
 

@@ -5,9 +5,12 @@ import 'package:flutter/material.dart';
 class ChatProvider extends ChangeNotifier {
   final ChatRepository _chatRepository = ChatRepository();
   final TextEditingController textController = TextEditingController();
+  final ScrollController scrollController = ScrollController();
+
   List<ChatMessage> chatMessage = [];
 
   String streamText = '';
+  bool isLoading = false;
 
   void sendChat() async {
     chatMessage = [
@@ -16,19 +19,30 @@ class ChatProvider extends ChangeNotifier {
           content: textController.text,
           messageType: MessageType.user,
           role: 'user',
-          dateTime: DateTime.now().toString())
+          dateTime: DateTime.now().toString()),
+      ChatMessage(
+          role: 'assistant', dateTime: DateTime.now().toString())
     ];
-    notifyListeners();
+    streamText = '';
+    textController.text  = '';
+    notify();
 
+    isLoading = true;
     try {
-      final response =
-          await _chatRepository.sendMessage(chatMessage, textController.text);
-      final newMessages = response?.map((e) => e.message!).toList();
-
-      if (newMessages != null) {
-        chatMessage = [...chatMessage, ...newMessages];
-        notifyListeners();
-      }
+      _chatRepository.sendMessage(chatMessage, textController.text, (answer){
+        final newAnswer = chatMessage.last.content += answer;
+        streamText = newAnswer;
+        chatMessage.last.content= newAnswer;
+        notify();
+      });
     } catch (_) {}
+    isLoading = false;
+  }
+
+
+  void notify(){
+    notifyListeners();
+    scrollController.animateTo(scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 50), curve: Curves.bounceIn);
   }
 }

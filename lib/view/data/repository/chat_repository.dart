@@ -1,45 +1,54 @@
 import 'dart:convert';
-import 'dart:io';
+import 'package:http/http.dart' as http;
 
-import 'package:character_gpt/view/data/model/chat_choice.dart';
 import 'package:character_gpt/view/data/model/chat_completion_response.dart';
 import 'package:character_gpt/view/data/model/chat_message.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ChatRepository {
-  final Dio _dioClient = Dio(BaseOptions(
-    baseUrl: 'https://api.openai.com/',
-    headers: {
-      HttpHeaders.authorizationHeader: "Bearer ${dotenv.env['API_KEY'] ?? ''}",
-    },
-    contentType: 'application/json',
-    followRedirects: false,
-  ));
 
-  Future<List<ChatChoice>?> sendMessage(
-      List<ChatMessage> messages, String content) async {
+  void sendMessage(List<ChatMessage> messages, String content, Function(String) returnAnswer) {
     try {
       final beforeMessages = messages.map((e) => e.toJson()).toList();
-      final response =
-          await _dioClient.post<Map<String, dynamic>>('v1/chat/completions',
-              data: json.encode({
-                "model": "gpt-3.5-turbo",
-                "messages": [
-                  ...beforeMessages,
-                  ChatMessage().toMap(content: content, role: 'user')
-                ],
-                "temperature": 1,
-                "max_tokens": 256,
-                "top_p": 1,
-                "frequency_penalty": 0,
-                "presence_penalty": 0
-              }));
-      ChatCompletionResponse convertResponse =
-          ChatCompletionResponse.fromJson(response.data!);
+      final client = http.Client();
+      var request = http.Request('POST',
+      Uri.parse('https://api.openai.com/v1/chat/completions'),);
+      request.body = json.encode({
+        'model': 'gpt-3.5-turbo',
+        'messages': [
+          ...beforeMessages,
+          ChatMessage().toMap(content: content, role: 'user')
+        ],
+        "stream": true
+      });
+      request.headers.addAll({
+        'content-type': 'application/json',
+        'authorization': 'Bearer ${dotenv.env['API_KEY'] ?? ''}',
+        'accept': 'text/event-stream',
+      });
+      Future<http.StreamedResponse> response = client.send(request);
 
-      return convertResponse.choices;
-    } catch (_) {}
+      response.asStream().listen((data) {
+        data.stream
+            .transform(const Utf8Decoder())
+            .transform(const LineSplitter())
+            .listen(
+              (dataLine) {
+            if (dataLine.isEmpty || dataLine == 'data: [DONE]') {
+              return;
+            }
+
+            final map = dataLine.replaceAll('data: ', '');
+            Map<String, dynamic> data = json.decode(map);
+
+            ChatCompletionResponse chatData =
+            ChatCompletionResponse.fromJson(data);
+            returnAnswer(chatData.choices?.first.delta?.content ?? '');
+          },
+        );
+      });
+    } catch (e) {
+      rethrow;
+    }
   }
-  
 }

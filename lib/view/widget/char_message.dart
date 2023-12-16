@@ -1,3 +1,4 @@
+import 'package:character_gpt/view/widget/gpt_message_text.dart';
 import 'package:flutter/material.dart';
 
 class ChatMessage extends StatelessWidget {
@@ -6,11 +7,13 @@ class ChatMessage extends StatelessWidget {
     required this.isMyMessage,
     required this.dateTime,
     required this.message,
+    required this.lastMessage,
   });
 
   final String message;
   final String dateTime;
   final bool isMyMessage;
+  final bool lastMessage;
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +30,10 @@ class ChatMessage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12)),
             margin: const EdgeInsets.symmetric(vertical: 6),
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 17),
-            child: Text(
+            child: (!isMyMessage && lastMessage) ? const GptMessageText() : Text(
               message,
               style: const TextStyle(height: 1.4),
-            ),
+            )
           ),
           Text(
             formatDate(DateTime.parse(dateTime)),

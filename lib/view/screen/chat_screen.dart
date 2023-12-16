@@ -16,7 +16,7 @@ class ChatScreen extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            const ChatList(),
+            const Expanded(child: ChatList()),
             Column(
               children: [
                 const Padding(

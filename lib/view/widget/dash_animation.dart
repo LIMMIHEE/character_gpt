@@ -14,7 +14,7 @@ class _DashAnimationState extends State<DashAnimation> {
   @override
   Widget build(BuildContext context) {
     return  SizedBox(
-      height: 650,
+      height: 500,
       child: Stack(
         children: [
           const Padding(
@@ -29,7 +29,7 @@ class _DashAnimationState extends State<DashAnimation> {
             },
             child: RiveAnimation.asset(
               'assets/rive/flutter_dash.riv',
-              fit: BoxFit.fitHeight,
+              fit: BoxFit.cover,
               controllers: [
                 context.read<RiveProvider>().winkController,
                 context.read<RiveProvider>().waveController,

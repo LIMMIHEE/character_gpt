@@ -1,7 +1,6 @@
 import 'package:character_gpt/view/screen/chat_screen.dart';
 import 'package:character_gpt/view/widget/dash_animation.dart';
 import 'package:flutter/material.dart';
-import 'package:rive/rive.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
