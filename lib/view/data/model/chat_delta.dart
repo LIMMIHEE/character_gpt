@@ -1,4 +1,4 @@
-class ChatDelta{
+class ChatDelta {
   String? content;
 
   ChatDelta({

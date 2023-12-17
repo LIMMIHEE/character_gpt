@@ -20,6 +20,7 @@ dependencies:
   provider:
   flutter_dotenv:
   rive:
+  flutter_gemini:
 
 dev_dependencies:
   flutter_test:

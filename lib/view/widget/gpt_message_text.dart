@@ -2,7 +2,7 @@ import 'package:character_gpt/view/data/provider/chat_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class GptMessageText extends StatefulWidget{
+class GptMessageText extends StatefulWidget {
   const GptMessageText({super.key});
 
   @override
@@ -14,8 +14,9 @@ class _GptMessageTextState extends State<GptMessageText>
   late Animation<int> textCount;
   late AnimationController animationController;
 
-  void initAnimation(){
-    animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 1500));
+  void initAnimation() {
+    animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 1500));
     animationController.addListener(() => setState);
   }
 
@@ -27,9 +28,12 @@ class _GptMessageTextState extends State<GptMessageText>
 
   @override
   Widget build(BuildContext context) {
-    final  message = context.select((ChatProvider provider) => provider.streamText);
-    return AnimatedBuilder(animation: animationController, builder: (context, child){
-      return Text(message);
-    });
+    final message =
+        context.select((ChatProvider provider) => provider.streamText);
+    return AnimatedBuilder(
+        animation: animationController,
+        builder: (context, child) {
+          return Text(message);
+        });
   }
 }

@@ -13,18 +13,19 @@ class DashAnimation extends StatefulWidget {
 class _DashAnimationState extends State<DashAnimation> {
   @override
   Widget build(BuildContext context) {
-    return  SizedBox(
+    return SizedBox(
       height: 500,
       child: Stack(
         children: [
           const Padding(
             padding: EdgeInsets.all(16),
-            child: Text('Remix file by the Flutter Lover', style: TextStyle(
-              color: Colors.grey
-            ),),
+            child: Text(
+              'Remix file by the Flutter Lover',
+              style: TextStyle(color: Colors.grey),
+            ),
           ),
           GestureDetector(
-            onTap: (){
+            onTap: () {
               context.read<RiveProvider>().wavePlay();
             },
             child: RiveAnimation.asset(

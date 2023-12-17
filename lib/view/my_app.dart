@@ -15,13 +15,11 @@ class MyApp extends StatelessWidget {
       ),
       home: const Scaffold(
         backgroundColor: Colors.white,
-        body: SafeArea(child: Column(
+        body: SafeArea(
+            child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            DashAnimation(),
-            Expanded(child: ChatScreen())
-          ],
+          children: [DashAnimation(), Expanded(child: ChatScreen())],
         )),
       ),
     );

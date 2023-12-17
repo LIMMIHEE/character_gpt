@@ -9,7 +9,8 @@ class ChatList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final chatMessage = context.select((ChatProvider provider) => provider.chatMessage);
+    final chatMessage =
+        context.select((ChatProvider provider) => provider.chatMessage);
 
     return ConstrainedBox(
       constraints: const BoxConstraints(maxHeight: 400),
@@ -19,12 +20,14 @@ class ChatList extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: chatMessage.map((message) => ChatMessage(
-            isMyMessage: message.messageType == model.MessageType.user,
-            message: message.content,
-            dateTime: message.dateTime,
-            lastMessage: message.hashCode == chatMessage.last.hashCode,
-          )).toList(),
+          children: chatMessage
+              .map((message) => ChatMessage(
+                    isMyMessage: message.messageType == model.MessageType.user,
+                    message: message.content,
+                    dateTime: message.dateTime,
+                    lastMessage: message.hashCode == chatMessage.last.hashCode,
+                  ))
+              .toList(),
         ),
       ),
     );

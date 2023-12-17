@@ -20,27 +20,25 @@ class ChatProvider extends ChangeNotifier {
           messageType: MessageType.user,
           role: 'user',
           dateTime: DateTime.now().toString()),
-      ChatMessage(
-          role: 'assistant', dateTime: DateTime.now().toString())
+      ChatMessage(role: 'assistant', dateTime: DateTime.now().toString())
     ];
     streamText = '';
-    textController.text  = '';
+    textController.text = '';
     notify();
 
     isLoading = true;
     try {
-      _chatRepository.sendMessage(chatMessage, textController.text, (answer){
+      _chatRepository.sendMessage(chatMessage, textController.text, (answer) {
         final newAnswer = chatMessage.last.content += answer;
         streamText = newAnswer;
-        chatMessage.last.content= newAnswer;
+        chatMessage.last.content = newAnswer;
         notify();
       });
     } catch (_) {}
     isLoading = false;
   }
 
-
-  void notify(){
+  void notify() {
     notifyListeners();
     scrollController.animateTo(scrollController.position.maxScrollExtent,
         duration: const Duration(milliseconds: 50), curve: Curves.bounceIn);

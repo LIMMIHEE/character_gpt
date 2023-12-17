@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:rive/rive.dart';
 
-class RiveProvider extends ChangeNotifier{
+class RiveProvider extends ChangeNotifier {
   final RiveAnimationController winkController = OneShotAnimation(
     'Wink',
     autoplay: true,
@@ -23,5 +23,4 @@ class RiveProvider extends ChangeNotifier{
 
     waveController.isActive = false;
   }
-
 }

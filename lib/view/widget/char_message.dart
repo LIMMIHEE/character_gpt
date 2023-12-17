@@ -24,17 +24,18 @@ class ChatMessage extends StatelessWidget {
             isMyMessage ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           Container(
-            decoration: BoxDecoration(
-                color:
-                    isMyMessage ? Colors.grey.withOpacity(0.3): Colors.white,
-                borderRadius: BorderRadius.circular(12)),
-            margin: const EdgeInsets.symmetric(vertical: 6),
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 17),
-            child: (!isMyMessage && lastMessage) ? const GptMessageText() : Text(
-              message,
-              style: const TextStyle(height: 1.4),
-            )
-          ),
+              decoration: BoxDecoration(
+                  color:
+                      isMyMessage ? Colors.grey.withOpacity(0.3) : Colors.white,
+                  borderRadius: BorderRadius.circular(12)),
+              margin: const EdgeInsets.symmetric(vertical: 6),
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 17),
+              child: (!isMyMessage && lastMessage)
+                  ? const GptMessageText()
+                  : Text(
+                      message,
+                      style: const TextStyle(height: 1.4),
+                    )),
           Text(
             formatDate(DateTime.parse(dateTime)),
             style: const TextStyle(
