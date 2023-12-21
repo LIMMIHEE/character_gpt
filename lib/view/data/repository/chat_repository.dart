@@ -1,12 +1,16 @@
 import 'dart:convert';
+import 'package:character_gpt/view/data/provider/rive_provider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:character_gpt/view/data/model/chat_completion_response.dart';
 import 'package:character_gpt/view/data/model/chat_message.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:provider/provider.dart';
 
 class ChatRepository {
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   final gemini = Gemini.instance;
   String gptAnswer = '';
 
@@ -65,7 +69,13 @@ class ChatRepository {
   void textEmotionClassification() {
     gemini
         .text("'$gptAnswer' ${dotenv.env['GEMINI_PROMPT'] ?? ''}")
-        .then((value) => print(value?.output));
+        .then((value) {
+      if (value?.output != null) {
+        navigatorKey.currentContext!
+            .read<RiveProvider>()
+            .animationPlay(playType: value!.output!);
+      }
+    });
 
     gptAnswer = '';
   }

@@ -4,23 +4,48 @@ import 'package:rive/rive.dart';
 class RiveProvider extends ChangeNotifier {
   final RiveAnimationController winkController = OneShotAnimation(
     'Wink',
-    autoplay: true,
   );
-  final RiveAnimationController waveController = OneShotAnimation(
-    'Wave',
-    autoplay: false,
-  );
+  final RiveAnimationController waveController =
+      OneShotAnimation('Wave', autoplay: false);
+  final RiveAnimationController joyController =
+      OneShotAnimation('Joy', autoplay: false);
+  final RiveAnimationController sadController =
+      OneShotAnimation('Sad', autoplay: false);
+  final RiveAnimationController surprisedController =
+      OneShotAnimation('Surprised', autoplay: false);
 
-  bool get isWavePlaying => waveController.isActive;
-  Future<void> wavePlay() async {
-    if (isWavePlaying) return;
+  bool isAnimationPlaying = false;
+  Future<void> animationPlay({String playType = ''}) async {
+    if (isAnimationPlaying) return;
+    isAnimationPlaying = true;
 
-    waveController.isActive = true;
+    RiveAnimationController controller = waveController;
+    switch (playType) {
+      case "기쁨":
+        {
+          controller = joyController;
+          break;
+        }
+      case "슬픔":
+        {
+          controller = sadController;
+          break;
+        }
+      case "놀람":
+        {
+          controller = surprisedController;
+          break;
+        }
+    }
+    winkController.isActive = false;
+    controller.isActive = true;
 
     await Future.delayed(
       const Duration(seconds: 1),
     );
 
-    waveController.isActive = false;
+    controller.isActive = false;
+    isAnimationPlaying = false;
+    winkController.isActive = true;
   }
 }

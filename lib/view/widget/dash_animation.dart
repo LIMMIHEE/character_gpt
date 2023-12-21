@@ -26,7 +26,7 @@ class _DashAnimationState extends State<DashAnimation> {
           ),
           GestureDetector(
             onTap: () {
-              context.read<RiveProvider>().wavePlay();
+              context.read<RiveProvider>().animationPlay();
             },
             child: RiveAnimation.asset(
               'assets/rive/flutter_dash.riv',
@@ -34,6 +34,9 @@ class _DashAnimationState extends State<DashAnimation> {
               controllers: [
                 context.read<RiveProvider>().winkController,
                 context.read<RiveProvider>().waveController,
+                context.read<RiveProvider>().joyController,
+                context.read<RiveProvider>().sadController,
+                context.read<RiveProvider>().surprisedController,
               ],
             ),
           ),

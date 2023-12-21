@@ -1,3 +1,4 @@
+import 'package:character_gpt/view/data/repository/chat_repository.dart';
 import 'package:character_gpt/view/screen/chat_screen.dart';
 import 'package:character_gpt/view/widget/dash_animation.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: '대시와 대화하기',
+      navigatorKey: ChatRepository.navigatorKey,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
         useMaterial3: true,

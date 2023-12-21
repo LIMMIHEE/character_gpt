@@ -114,10 +114,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_gemini
-      sha256: "2de574b0a74cee8131736a051986ea1db04ce41628037a8e01d50f151b85ca9c"
+      sha256: eb9c94b4891f6568c7e4399e67ce2fe02b0b7de94c89bf765377de62f65c001f
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.0"
+    version: "1.0.1"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -252,10 +252,10 @@ packages:
     dependency: "direct main"
     description:
       name: rive
-      sha256: fd15b219f5cc110285ebf52093b0b0f4038c3ca750f2fc5fc44d9c80a56c44f3
+      sha256: ae75a6e9cfbf146630bfb1feba97ee582d935508be6b362e4bd197b9c55a6dd3
       url: "https://pub.dev"
     source: hosted
-    version: "0.12.3"
+    version: "0.12.4"
   rive_common:
     dependency: transitive
     description:
